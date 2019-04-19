@@ -5,7 +5,8 @@
   "author": "Tiago Almeida <tiago.fernando.almeida@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "dev": "nodemon server.js"
+    "dev": "nodemon server.js",
+    "start": "node src/server.js"
   },
   "dependencies": {
     "cors": "^2.8.5",
