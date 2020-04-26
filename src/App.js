@@ -3,45 +3,31 @@ import "./App.css";
 import emojis from "./services/Emojis.service";
 
 function App() {
-  const [data, setData] = useState([]);
-  const [arrayEmoji, setArrayEmoji] = useState([]);
+  const [dataObject, setDataObject] = useState([]);
 
   useEffect(() => {
     async function fetchData() {
-      const response = await emojis.listEmojis();
-      setData(response.data);
-
-      console.log(response.data);
+      const { data } = await emojis.listEmojis();
+      setDataObject(Object.entries(data));
     }
 
     fetchData();
-  }, []);
-
-  useEffect(() => {
-    function convertJson() {
-      let arr = [];
-      for (let i in data) {
-        arr.push([i, data[i]]);
-      }
-      setArrayEmoji(arr);
-      console.log(arr);
-    }
-    convertJson();
-  }, [data]);
+  }, [dataObject]);
 
   return (
-    <div>
-      <ul>
-        {arrayEmoji.map(item => (
-          <li key={item}>{item}</li>
+    <section className="produtos container">
+      <h2 className="subtitulo">Github Emojis</h2>
+      <ul className="produtos_lista">
+        {dataObject.map((item) => (
+          <li className="grid-1-3" key={item[0]}>
+            <div className="produtos_icone">
+              <img src={item[1]} alt={item[0]} width="50px" />
+            </div>
+            <h3>{item[0]}</h3>
+          </li>
         ))}
-        <li></li>
       </ul>
-      <img src="#!" className="App-logo" alt="logo" />
-      <p>
-        Edit <code>src/App.js</code> and save to reload.
-      </p>
-    </div>
+    </section>
   );
 }
 
